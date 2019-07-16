@@ -2,11 +2,20 @@ import React from 'react';
 import './App.css';
 
 class App extends React.Component {
-  // This function mocks the asynchronous API to fetch     the suggestions by prefix.
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+      result: [],
+      suggestions: false
+    }
+  }
+  // This function mocks the asynchronous API to fetch the suggestions by prefix.
   // Example:
-  // getSuggestions('fake').then(function(val) {
+  // getSuggestions('fake').then((val) => {
+  //    ({ suggestions: val })
   //    console.log(val);
-  // })
+  // });
   getSuggestions(prefix) {
     const result = Array
       .from(new Array(10), function (x, i) {
@@ -24,6 +33,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
+
+        <input type="text" id="ajax" list={this.state.val} placeholder="search" />
+          <datalist id="json-datalist"></datalist>
         <p>
           Please implement a text box with autocomplete suggestions like the screenshot below.
         </p>
