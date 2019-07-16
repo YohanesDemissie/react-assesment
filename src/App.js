@@ -6,35 +6,32 @@ class App extends React.Component {
     super(props);
     this.state = {
       input: '',
-      result: [],
       suggestions: false
     }
   }
   // This function mocks the asynchronous API to fetch the suggestions by prefix.
   // Example:
-  // getSuggestions('fake').then((val) => {
-  //    ({ suggestions: val })
-  //    console.log(val);
-  // });
-  getSuggestions(prefix) {
-    const result = Array
-      .from(new Array(10), function (x, i) {
-        return i;
-      })
-      .map(function (x) {
-        return prefix + '_mock_' + x;
-      });
-    const delay = Math.random() * 800 + 200; // delay 200~1000ms
-    return new Promise(function (resolve, reject) {
-      setTimeout(resolve, delay, result);
-    });
-  }
+  //  getSuggestions('fake').then(function(val) {
+  //     console.log(val);
+  //  })
+  // function getSuggestions(prefix) {
+  //   const result = Array
+  //     .from(new Array(10), function (x, i) {
+  //       return i;
+  //     })
+  //     .map(function (x) {
+  //       return prefix + '_mock_' + x;
+  //     });
+  //   const delay = Math.random() * 800 + 200; // delay 200~1000ms
+  //   return new Promise(function (resolve, reject) {
+  //     setTimeout(resolve, delay, result);
+  //   });
+  // }
 
   render() {
     return (
       <div>
-
-        <input type="text" id="ajax" list={this.state.val} placeholder="search" />
+        <input type="text" id="ajax" list={this.state.val} placeholder="search" style={styles.inputStyle}/>
           <datalist id="json-datalist"></datalist>
         <p>
           Please implement a text box with autocomplete suggestions like the screenshot below.
@@ -48,14 +45,22 @@ class App extends React.Component {
         </ul>
 
         <img src="https://vafyqw.bn1301.livefilestore.com/y4m95aNR29WvCX2FZiHr6lGgyYGqWnJp5MzPFHJAQQT-QAwZ08XCwI-ehTJNfGSyuZ7Z0giumulisPaqzQzOftlmFmb6ZAuBK_jDt2KCczcpk9xkKUOV73gWRgvYcDbH97Uzjm4hDW0-NPZ9TMX4Sih9AnCknlZ1Z7i_y16fNAk8SfV0Hn8Y-DjaxrIm7BTVWJs9FgjPdrY5Fgr0V1b5fpBcw?width=660&height=319&cropmode=none" alt="broken"
-          style={imgStyle} />
+          style={styles.imgStyle} />
       </div>
     );
   }
 }
 
-var imgStyle = {
-  width: '660px',
-  height: '319px'
+var styles = {
+  imgStyle: {
+    width: '660px',
+    height: '319px'
+  },
+  inputStyle: {
+    width: '260px',
+    height: '20px',
+    fontSize: '16px'
+
+  }
 }
 export default App;
