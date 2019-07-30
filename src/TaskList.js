@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 
-class TaskList extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,4 +53,4 @@ var styles = {
 
   }
 }
-export default TaskList;
+export default App;
