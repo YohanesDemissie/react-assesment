@@ -16,6 +16,18 @@ class App extends React.Component {
 
   // Handle Search Function
   getSuggestions(prefix) {
+    const mockList = [ //create an array to map through and populate ARRAY
+      'near me',
+      'in 2019',
+      'events',
+      'random facts',
+      'today',
+      'in the US',
+      'trend',
+      'top 10',
+      'styles',
+      'others'
+    ];
     const result = Array //result becomes state of suggestions: []
       .from(new Array(10), (x, i) => { //controlling array of 10 items only. (length, items)
         // console.log(x, 'THIS')
@@ -23,43 +35,27 @@ class App extends React.Component {
         return i;
       })
       .map((x) => {
-        const mockList = [ //create an array to map through and populate ARRAY
-          's',
-          'near me',
-          'n',
-          'in 2019',
-          'events',
-          'random facts',
-          'today',
-          'in the US',
-          'trend',
-          'top 10',
-          'styles',
-          'others'
-        ];
-        console.log(prefix, 'THIS')
-        console.log(mockList[x], 'THAT')
-        if ( mockList[x] === prefix) {
-          return prefix;
-        }
+        // console.log(prefix, 'THIS');
+        // console.log(mockList[x], 'THAT');
+        mockList.forEach(function (element) {
+          let letters = element.split('');
+          if(letters[x] === prefix) {
+            console.log(prefix[0], 'WE DID IT')
+            return prefix[0]
+          }return prefix[0]
+          // console.log(letters,' ARE WE SPLIT YET');
+          // console.log(element[i], 'ELEMEMNT');
+          // console.log(letters[x], 'LETTERS')
+          // console.log(prefix[i], "PREFIX"); //returns input
+          // if(letters[x] !== prefix) {
+          //   return 'HELLO'
+          // }
 
-        // const newStuff = [];
-        // newStuff.push(prefix) //push prefix into array
-        // // console.log(newStuff[prefix], 'POPULATED ARRAY?');
-        // let copy = mockList.slice();
-        // copy.map((x, i) => {
-        //   console.log(x, 'HELLO')
-        // })
-        // for (let k = 0; k < copy.length; k++ ) {
-        //   // console.log( copy[k], 'HOW MUCH'); //items in array
-        //   // console.log(newStuff, 'NEW STUFF') //user input
-        //   // if (prefix[k] !== mockList[k]) {
-        //   if (newStuff !== copy[k]) {
-        //   return mockList[x]
-        //   }
-        //   return newStuff;
+        }); return this.state.text
+        // if( mockList[x] === prefix){
+        //   return <b>{prefix}</b>;
         // }
-        let index = Math.floor(Math.random() * 9);
+        // let index = Math.floor(Math.random() * 9);
         // console.log(index, 'INDEX'); //creates random number 0-9
         // console.log(mockList[3], 'HERE'); //populated and given an index number
         // console.log(prefix, 'PREFIX'); //returns input value
@@ -103,7 +99,6 @@ class App extends React.Component {
       })
     }
   }
-  
   //incorporate my own click later
   handleClick(selectedText) {
     this.setState({
