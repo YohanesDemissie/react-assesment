@@ -1,216 +1,106 @@
-import React from 'react'
+import React from 'react';
+// import App from './Answer';
+
+let users = [
+  {
+    name: "Leonard Rogers",
+    email: "egestas@justonecante.org"
+  },
+  {
+    name: "Walker Pace",
+    email: "erat.eget.tincidunt@idsapienCras.org"
+  },
+  {
+    name: "Lance Mcintyre",
+    email: "Nam.ligula@quamvel.net"
+  },
+  {
+    name: "Rudyard Conway",
+    email: "sit@nunc.org"
+  },
+  {
+    name: "Chadwick Oneal",
+    email: "laoreet@dictum.edu"
+  },
+  {
+    name: "Isaiah Kent",
+    email: "diam.dictum@lobortisquam.co.uk"
+  },
+  {
+    name: "Griffith Perkins",
+    email: "congue@acfermentumvel.ca"
+  },
+  {
+    name: "Lawrence Wheeler",
+    email: "ac.libero@Duisac.org"
+  },
+  {
+    name: "Preston Walker",
+    email: "egestas.rhoncus@eudui.co.uk"
+  },
+  {
+    name: "Simon Brewer",
+    email: "nunc.sed@Fuscediamnunc.co.uk"
+  }
+];
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      suggestions: [],
-      text: '',
-      activeIndex: 0
+      searchString: "",
+      users: []
     };
-    this.getSuggestions = this.getSuggestions.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    //incorporate my own click function
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  // Handle Search Function
-  getSuggestions(prefix) {
-    const mockList = [ //create an array to map through and populate ARRAY
-      'near me',
-      'in 2019',
-      'events',
-      'random facts',
-      'today',
-      'in the US',
-      'trend',
-      'top 10',
-      'styles',
-      'others'
-    ];
-    const result = Array //result becomes state of suggestions: []
-      .from(new Array(10), (x, i) => { //controlling array of 10 items only. (length, items)
-        // console.log(x, 'THIS')
-        // console.log(i, 'THAT')
-        return i;
-      })
-      .map((x) => {
-        // console.log(prefix, 'THIS');
-        // console.log(mockList[x], 'THAT');
-        mockList.forEach(function (element) {
-          let letters = element.split('');
-          if(letters[x] === prefix) {
-            console.log(prefix[0], 'WE DID IT')
-            return prefix[0]
-          }return prefix[0]
-          // console.log(letters,' ARE WE SPLIT YET');
-          // console.log(element[i], 'ELEMEMNT');
-          // console.log(letters[x], 'LETTERS')
-          // console.log(prefix[i], "PREFIX"); //returns input
-          // if(letters[x] !== prefix) {
-          //   return 'HELLO'
-          // }
-
-        }); return this.state.text
-        // if( mockList[x] === prefix){
-        //   return <b>{prefix}</b>;
-        // }
-        // let index = Math.floor(Math.random() * 9);
-        // console.log(index, 'INDEX'); //creates random number 0-9
-        // console.log(mockList[3], 'HERE'); //populated and given an index number
-        // console.log(prefix, 'PREFIX'); //returns input value
-        // return prefix + ' ' + mockList[x] + ' ' + mockList[index];
-      });
-    const delay = Math.random() * 800 + 200; // delay 200~1000ms
-    return new Promise(function (resolve, reject) {
-      setTimeout(resolve, delay, result);
-    });
-  }
-
-  // compare(mockList, newStuff) {
-  //   const finalArray = [];
-  //   mockList.forEach((e1) => newStuff.forEach((e2) => {
-  //     console.log('MATCH ??')
-  //     if (e1 === e2) {
-  //       finalArray.push(e1)
-  //     }
-  //   }))
-  //   this.compare(finalArray);
-  //   return finalArray;
-  // }
-
-  handleChange(e) {
-    const value = e.target.value;
+  componentDidMount() {
     this.setState({
-      text: value
+      users: users
     });
-    if (value) {
-      // get suggestion items here
-      this.getSuggestions(value).then(result => {
-        if (this.state.text) {
-          this.setState({
-            suggestions: result
-          });
-        }
-      });
-    } else {
-      this.setState({
-        suggestions: []
-      })
-    }
+    this.refs.search.focus();
   }
-  //incorporate my own click later
-  handleClick(selectedText) {
+
+  handleChange() {
     this.setState({
-      activeIndex: 0,
-      text: selectedText,
-      suggestions: []
+      searchString: this.refs.search.value
     });
-  }
-
-  // suggestionSelected(value) {
-  //   this.setState({
-  //     text: value,
-  //     suggestions: []
-  //   })
-  // }
-
-  renderSuggestions() {
-    const { suggestions } = this.state;
-    if (!suggestions) return null;
-    else {
-      const list =
-        <ul>
-          {suggestions.map((item, index) =>
-            <li
-              className={
-                index === this.state.activeIndex ? 'active' : ''
-              }
-              key={index}
-              onClick={() => this.handleClick(item)}
-            > {item} </li>
-          )
-          }
-        </ul>
-      return list;
-    }
   }
 
   render() {
+    let _users = this.state.users;
+    let search = this.state.searchString.trim().toLowerCase();
+
+    if (search.length > 0) {
+      _users = _users.filter(function (user) {
+        return user.name.toLowerCase().match(search);
+      });
+    }
+
     return (
-          <div>
-            <input
-              type="text"
-              value={this.state.text}
-              onChange={this.handleChange}
-            />
-            <input type='submit' value='add' placeholder='search tasks' />
-          {this.renderSuggestions()}
-          </div>
+      <div>
+        <h3>React - simple search</h3>
+        <div>
+          <input
+            type="text"
+            value={this.state.searchString}
+            ref="search"
+            onChange={this.handleChange}
+            placeholder="type name here"
+          />
+          <ul>
+            {_users.map(l => {
+              return (
+                <li>
+                  {l.name} <a href="#">{l.email}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
     );
   }
 }
 
-export default App
-
-
-// import React from 'react';
-
-// class App extends React.Component {
-//   constructor(props){
-//     super(props);
-//     this.state = {
-//       input: '',
-//       tasks: []
-//     }
-//     this.handleChange = this.handleChange.bind(this);
-//     this.getSuggestions = this.getSuggestions.bind(this);
-//   }
-
-//   //start up helper function and array
-//   getSuggestions(prefix) {
-//     console.log('HELLO')
-//     const result = Array //array of suggestions
-//       .from(new Array(10), function (x, i) { //item index
-//         console.log(x, 'HELLO');
-//         return i;
-//       })
-//       .map(function (x) {
-//         const tasksList = ['clean car', 'fold clothes', 'buy groceries', 'pick up kids', 'watch \'Stranger Things\' season 3']
-//         console.log(tasksList)
-//         return prefix + ' ' + tasksList[x];
-//       });
-//     const delay = Math.random() * 800 + 200; // delay 200~1000ms
-//     return new Promise(function (resolve, reject) {
-//       setTimeout(resolve, delay, result);
-//     });
-//   }
-
-//   handleChange(e) {
-//     const value = e.target.value
-//     this.setState({ input: value });
-//     console.log(value);
-//   }
-
-
-//   render() {
-//     return(
-//       <div>
-//         <input onChange={this.handleChange} placeholder="search" style={styles.inputStyle} />
-//         <datalist >{this.getSuggestions}</datalist>
-//       </div>
-//     )
-//   }
-// }
-
-// const styles = {
-//   inputStyle: {
-//     marginTop: '30px',
-//     marginLeft: '15px',
-//     width: '400px',
-//     height: '50px',
-//     fontSize: '30px'
-//   }
-// }
-
-// export default App;
+export default App;
