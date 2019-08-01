@@ -1,7 +1,6 @@
 import React from 'react';
-import './App.css';
 
-class App extends React.Component {
+class TaskList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +22,7 @@ class App extends React.Component {
     console.log(this.state.toDos, 'ADDED?');
     this.setState({ list: '' }); //reset state to post value on click
     e.preventDefault();
-}
+  }
 
   render() {
     return (
@@ -35,9 +34,9 @@ class App extends React.Component {
         </form>
 
         <ul>
-            {this.state.toDos.map((list, index) => {
-              return <li key={index} value={list}>{list}</li>
-            })}
+          {this.state.toDos.map((list, index) => {
+            return <li key={index} value={list}>{list}</li>
+          })}
         </ul>
 
       </div>
@@ -53,4 +52,4 @@ var styles = {
 
   }
 }
-export default App;
+export default TaskList; 

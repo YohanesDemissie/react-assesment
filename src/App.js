@@ -8,8 +8,23 @@ class App extends React.Component {
       searchString: "",
       selectedText: [],
       results: [],
-      tasks: [
-        "Clean the Car",
+      suggestions: []
+    };
+    this.getSuggestions = this.getSuggestions.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.clearList = this.clearList.bind(this);
+  }
+
+  //NEED TO INCORPORATE
+  getSuggestions(prefix) {
+    console.log('HELLO')
+  const result = Array
+    .from(new Array(10), function (x, i) {
+      return i;
+    })
+    .map(function (x) {
+      const tasks = ["Clean the Car",
         "Clean the house",
         "Clean the bedroom",
         "Clean the dishes",
@@ -18,23 +33,9 @@ class App extends React.Component {
         "Walk the plank",
         "Buy groceries",
         "Buy toiletries",
-        "Buy beers"
-      ]
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.clearList = this.clearList.bind(this);
-  }
-
-  //NEED TO INCORPORATE
-  getSuggestions(prefix) {
-  const result = Array
-    .from(new Array(10), function (x, i) {
-      console.log('hello')
-      return i;
-    })
-    .map(function (x) {
-      return prefix + '_mock_' + x;
+        "Buy beers" ];
+      return tasks[x];
+;
     });
   const delay = Math.random() * 800 + 200; // delay 200~1000ms
   return new Promise(function (resolve, reject) {
@@ -43,12 +44,32 @@ class App extends React.Component {
 }
 
   handleChange(e) {
-    const value = e.target.value
-    console.log(this.state.selectedText, 'hello')
+    // const value = e.target.value
+    // console.log(this.state.selectedText, 'hello')
+    // this.setState({
+    //   searchString: value,
+    // });
+
+    const value = e.target.value;
     this.setState({
-      searchString: value,
+      searchString: value
     });
+    if (value) {
+      // get suggestion items here
+      this.getSuggestions(value).then(result => {
+        if (this.state.searchString) {
+          this.setState({
+            suggestions: result
+          });
+        }
+      });
+    } else {
+      this.setState({
+        suggestions: []
+      })
+    }
   }
+
 
   handleClick(e) {
     const result = [e];
@@ -63,19 +84,19 @@ class App extends React.Component {
  }
 
   render() {
-    let tasks = this.state.tasks;
+    let suggestions = this.state.suggestions;
     let results = this.state.results;
     let search = this.state.searchString.trim().toLowerCase();
 
     if (search.length > 0) {
-      tasks = tasks.filter(function (user) {
+      suggestions = suggestions.filter(function (user) {
         return user.toLowerCase().match(search);
       });
     }
 
     return (
       <div>
-        <h1>Create Tasks List</h1>
+        <h1>Create suggestions List</h1>
         <h5>Below we have some suggestions...</h5>
         <div>
           <input
@@ -86,7 +107,7 @@ class App extends React.Component {
             placeholder="search suggestions"
           />
           <ul>
-            {tasks.map((item, index) => {
+            {suggestions.map((item, index) => {
               return (
                 <li
                   className="suggestions"
