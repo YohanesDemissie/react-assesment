@@ -1,101 +1,51 @@
 import React from 'react';
 
-// let users = [
-//   {
-//     name: "Leonard Rogers",
-//     email: "egestas@justonecante.org"
-//   },
-//   {
-//     name: "Walker Pace",
-//     email: "erat.eget.tincidunt@idsapienCras.org"
-//   },
-//   {
-//     name: "Lance Mcintyre",
-//     email: "Nam.ligula@quamvel.net"
-//   },
-//   {
-//     name: "Rudyard Conway",
-//     email: "sit@nunc.org"
-//   },
-//   {
-//     name: "Chadwick Oneal",
-//     email: "laoreet@dictum.edu"
-//   },
-//   {
-//     name: "Isaiah Kent",
-//     email: "diam.dictum@lobortisquam.co.uk"
-//   },
-//   {
-//     name: "Griffith Perkins",
-//     email: "congue@acfermentumvel.ca"
-//   },
-//   {
-//     name: "Lawrence Wheeler",
-//     email: "ac.libero@Duisac.org"
-//   },
-//   {
-//     name: "Preston Walker",
-//     email: "egestas.rhoncus@eudui.co.uk"
-//   },
-//   {
-//     name: "Simon Brewer",
-//     email: "nunc.sed@Fuscediamnunc.co.uk"
-//   }
-// ];
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchString: "",
-      users: [{
-      name: "Leonard Rogers",
-        email: "egestas@justonecante.org"
-    },
-    {
-      name: "Walker Pace",
-        email: "erat.eget.tincidunt@idsapienCras.org"
-    },
-    {
-      name: "Lance Mcintyre",
-        email: "Nam.ligula@quamvel.net"
-    },
-    {
-      name: "Rudyard Conway",
-        email: "sit@nunc.org"
-    },
-    {
-      name: "Chadwick Oneal",
-        email: "laoreet@dictum.edu"
-    },
-    {
-      name: "Isaiah Kent",
-        email: "diam.dictum@lobortisquam.co.uk"
-    },
-    {
-      name: "Griffith Perkins",
-        email: "congue@acfermentumvel.ca"
-    },
-    {
-      name: "Lawrence Wheeler",
-        email: "ac.libero@Duisac.org"
-    },
-    {
-      name: "Preston Walker",
-        email: "egestas.rhoncus@eudui.co.uk"
-    },
-    {
-      name: "Simon Brewer",
-      email: "nunc.sed@Fuscediamnunc.co.uk"
-    }]
+      selectedText: "",
+      users: [
+      "Leonard Rogers"
+    ,
+    
+      "Walker Pace"
+    ,
+    
+      "Lance Mcintyre"
+    ,
+    
+      "Rudyard Conway"
+    ,
+    
+      "Chadwick Oneal"
+    ,
+    
+      "Isaiah Kent"
+    ,
+    
+      "Griffith Perkins"
+    ,
+    
+      "Lawrence Wheeler"
+    ,
+    
+      "Preston Walker"
+    ,
+    
+      "Simon Brewer"
+    ]
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   //NEED TO INCORPORATE
   getSuggestions(prefix) {
   const result = Array
     .from(new Array(10), function (x, i) {
+      console.log('hello')
       return i;
     })
     .map(function (x) {
@@ -106,28 +56,30 @@ class App extends React.Component {
     setTimeout(resolve, delay, result);
   });
 }
-// END INCORPORATION
 
-  // componentDidMount() {
-  //   // this.setState({
-  //   //   users: users
-  //   // });
-  //   this.refs.search.focus();
-  // }
-
-  handleChange() {
+  handleChange(e) {
+    const value = e.target.value
+    console.log(this.state.selectedText, 'hello')
     this.setState({
-      searchString: this.refs.search.value
+      searchString: value,
     });
   }
 
+  handleClick(e) {
+    const result = [e];
+    console.log(result, 'RESULTS');
+
+    this.setState({
+      users: result
+    });
+ }
   render() {
     let users = this.state.users;
     let search = this.state.searchString.trim().toLowerCase();
 
     if (search.length > 0) {
       users = users.filter(function (user) {
-        return user.name.toLowerCase().match(search);
+        return user.toLowerCase().match(search);
       });
     }
 
@@ -143,10 +95,14 @@ class App extends React.Component {
             placeholder="type name here"
           />
           <ul>
-            {users.map(l => {
+            {users.map((item, index) => {
               return (
-                <li>
-                  {l.name} <a href="#">{l.email}</a>
+                <li
+                  // value={this.state.selectedText}
+                  key={index}
+                  onClick={() => this.handleClick(item)}
+                >
+                  {item}
                 </li>
               );
             })}
