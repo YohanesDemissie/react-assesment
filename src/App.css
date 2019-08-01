@@ -22,15 +22,6 @@ input {
   height: 20px;
 }
 
-.x {
-  /* display: none; */
-}
-
-.x:hover {
-  display: contents;
-  color: red;
-}
-
 button {
   font-size: 12px;
   border-radius: 10%;
