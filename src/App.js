@@ -16,7 +16,6 @@ class App extends React.Component {
     this.clearList = this.clearList.bind(this);
   }
 
-  //NEED TO INCORPORATE
   getSuggestions(prefix) {
     console.log('HELLO')
   const result = Array
@@ -24,7 +23,8 @@ class App extends React.Component {
       return i;
     })
     .map(function (x) {
-      const tasks = ["Clean the Car",
+      const tasks = [
+        "Clean the Car",
         "Clean the house",
         "Clean the bedroom",
         "Clean the dishes",
@@ -44,12 +44,6 @@ class App extends React.Component {
 }
 
   handleChange(e) {
-    // const value = e.target.value
-    // console.log(this.state.selectedText, 'hello')
-    // this.setState({
-    //   searchString: value,
-    // });
-
     const value = e.target.value;
     this.setState({
       searchString: value
@@ -79,14 +73,18 @@ class App extends React.Component {
     });
  }
 
- clearList(e) {
-   this.setState({ results: []})
+ clearList() {
+   this.setState({
+     results: [],
+     suggestions: [],
+     searchString: ''
+  })
  }
 
   render() {
     let suggestions = this.state.suggestions;
     let results = this.state.results;
-    let search = this.state.searchString.trim().toLowerCase();
+    let search = this.state.searchString.trim().toLowerCase(); //.trim to remove extra wite spaces
 
     if (search.length > 0) {
       suggestions = suggestions.filter(function (user) {
