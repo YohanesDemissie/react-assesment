@@ -6,7 +6,7 @@ div {
 
 ul {
   text-align: left;
-  margin-left: 30%;
+  margin-left: 25%;
   text-decoration: none;
   list-style-type: none;
   line-height: 20px;
@@ -15,4 +15,9 @@ ul {
 li:hover {
   cursor: pointer;
   border: solid 1px black;
+}
+
+input {
+  width: 200px;
+  height: 20px;
 }

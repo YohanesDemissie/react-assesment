@@ -70,7 +70,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <h3>Add List of Tasks.</h3>
+        <h1>Create Tasks List</h1>
         <h5>Below we have some suggestions...</h5>
         <div>
           <input
@@ -78,7 +78,7 @@ class App extends React.Component {
             value={this.state.searchString}
             ref="search"
             onChange={this.handleChange}
-            placeholder="add/search tasks"
+            placeholder="search suggestions"
           />
           <ul>
             {tasks.map((item, index) => {
@@ -92,7 +92,7 @@ class App extends React.Component {
               );
             })}
           </ul>
-          <h1>Things To Do</h1>
+          <h2>Things To Do</h2>
           <ul>
             {results.map((item, index) => {
               return (
