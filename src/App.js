@@ -1,41 +1,25 @@
 import React from 'react';
+import './App.css'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchString: "",
-      selectedText: "",
-      users: [
-      "Leonard Rogers"
-    ,
-    
-      "Walker Pace"
-    ,
-    
-      "Lance Mcintyre"
-    ,
-    
-      "Rudyard Conway"
-    ,
-    
-      "Chadwick Oneal"
-    ,
-    
-      "Isaiah Kent"
-    ,
-    
-      "Griffith Perkins"
-    ,
-    
-      "Lawrence Wheeler"
-    ,
-    
-      "Preston Walker"
-    ,
-    
-      "Simon Brewer"
-    ]
+      selectedText: [],
+      results: [],
+      tasks: [
+        "Clean the Car",
+        "Clean the house",
+        "Clean the bedroom",
+        "Clean the dishes",
+        "Walk the dog",
+        "Walk with grandma",
+        "Walk the plank",
+        "Buy groceries",
+        "Buy toiletries",
+        "Buy beers"
+      ]
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -67,38 +51,52 @@ class App extends React.Component {
 
   handleClick(e) {
     const result = [e];
-    console.log(result, 'RESULTS');
-
+    this.state.results.push(result)
     this.setState({
-      users: result
+      selectedText: result,
     });
  }
+
   render() {
-    let users = this.state.users;
+    let tasks = this.state.tasks;
+    let results = this.state.results;
     let search = this.state.searchString.trim().toLowerCase();
 
     if (search.length > 0) {
-      users = users.filter(function (user) {
+      tasks = tasks.filter(function (user) {
         return user.toLowerCase().match(search);
       });
     }
 
     return (
       <div>
-        <h3>React - simple search</h3>
+        <h3>Add List of Tasks.</h3>
+        <h5>Below we have some suggestions...</h5>
         <div>
           <input
             type="text"
             value={this.state.searchString}
             ref="search"
             onChange={this.handleChange}
-            placeholder="type name here"
+            placeholder="add/search tasks"
           />
           <ul>
-            {users.map((item, index) => {
+            {tasks.map((item, index) => {
               return (
                 <li
-                  // value={this.state.selectedText}
+                  key={index}
+                  onClick={() => this.handleClick(item)}
+                >
+                  {item}
+                </li>
+              );
+            })}
+          </ul>
+          <h1>Things To Do</h1>
+          <ul>
+            {results.map((item, index) => {
+              return (
+                <li
                   key={index}
                   onClick={() => this.handleClick(item)}
                 >
