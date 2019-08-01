@@ -23,6 +23,7 @@ class App extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.clearList = this.clearList.bind(this);
   }
 
   //NEED TO INCORPORATE
@@ -57,6 +58,10 @@ class App extends React.Component {
     });
  }
 
+ clearList(e) {
+   this.setState({ results: []})
+ }
+
   render() {
     let tasks = this.state.tasks;
     let results = this.state.results;
@@ -84,6 +89,7 @@ class App extends React.Component {
             {tasks.map((item, index) => {
               return (
                 <li
+                  className="suggestions"
                   key={index}
                   onClick={() => this.handleClick(item)}
                 >
@@ -98,12 +104,12 @@ class App extends React.Component {
               return (
                 <li
                   key={index}
-                  onClick={() => this.handleClick(item)}
                 >
                   {item}
                 </li>
               );
             })}
+            <button onClick={() => this.clearList()}>Clear List</button>
           </ul>
         </div>
       </div>
