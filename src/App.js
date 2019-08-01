@@ -94,7 +94,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <h1>Create suggestions List</h1>
+        <h1>Create todo List</h1>
         <h5>Below we have some suggestions...</h5>
         <div>
           <input
@@ -117,7 +117,7 @@ class App extends React.Component {
               );
             })}
           </ul>
-          <h2>Things To Do</h2>
+          <h2>Things To Complete</h2>
           <ul>
             {results.map((item, index) => {
               return (
